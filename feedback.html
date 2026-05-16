@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback | T-Handlers Logistics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="index.html">HOMEPAGE</a>
+                <a href="about.html">ABOUT US</a>
+                <a href="fleet.html">OUR FLEET</a>
+                <a href="contact.html">CONTACT US</a>
+                <a href="feedback.html" class="active">FEEDBACK</a>
+            </div>
+            <div class="logo" onclick="window.location.href='index.html'">
+                <img src="LOGO.png" alt="T-Handlers Logistics Logo" class="logo-img">
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-inner">
+        <img src="Truck.png" alt="Customer Feedback" class="hero-bg-image">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Customer Feedback</h1>
+            <p>We Value Your Opinion</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="feedback-form">
+                <h2>Share Your Experience</h2>
+                <div id="feedbackSuccessMessage" class="success-message hidden-message">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Feedback Submitted!</h3>
+                    <p>Thank you. Redirecting to homepage...</p>
+                </div>
+                <form id="feedbackForm">
+                    <div class="form-group"><label>Full Name *</label><input type="text" name="fullName" placeholder="Enter your full name"></div>
+                    <div class="form-group"><label>Email *</label><input type="email" name="email" placeholder="Enter your email"></div>
+                    
+                    <label>Vehicle *</label>
+                    <table class="vehicle-table">
+                        <tr><th>Select</th><th>Type</th><th>Model</th></tr>
+                        <tr><td><input type="radio" name="vehicle" value="Volvo FH16"></td><td>Heavy Truck</td><td>Volvo FH16</td></tr>
+                        <tr><td><input type="radio" name="vehicle" value="Scania"></td><td>Heavy Truck</td><td>Scania R-Series</td></tr>
+                        <tr><td><input type="radio" name="vehicle" value="Thermo King"></td><td>Refrigerated</td><td>Thermo King T1200</td></tr>
+                        <tr><td><input type="radio" name="vehicle" value="Carrier"></td><td>Refrigerated</td><td>Carrier Vector</td></tr>
+                        <tr><td><input type="radio" name="vehicle" value="Frigoblock"></td><td>Refrigerated</td><td>Frigoblock</td></tr>
+                        <tr><td><input type="radio" name="vehicle" value="Sprinter"></td><td>Light Van</td><td>Mercedes Sprinter</td></tr>
+                        <tr><td><input type="radio" name="vehicle" value="Transit"></td><td>Light Van</td><td>Ford Transit</td></tr>
+                        <tr><td><input type="radio" name="vehicle" value="ProMaster"></td><td>Light Van</td><td>RAM ProMaster</td></tr>
+                    </table>
+
+                    <div class="form-group">
+                        <label>Rating *</label>
+                        <div class="rating-stars">
+                            <i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <p id="ratingFeedback" class="rating-hint">Click a star to rate</p>
+                    </div>
+
+                    <div class="form-group"><label>Your Feedback *</label><textarea name="feedback" rows="4" placeholder="Tell us about your experience..."></textarea></div>
+                    
+                    <div class="form-group">
+                        <label>Recommend us? *</label>
+                        <div class="radio-group"><label><input type="radio" name="recommend" value="Yes"> Yes</label><label><input type="radio" name="recommend" value="No"> No</label></div>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary submit-btn">SUBMIT FEEDBACK</button>
+                </form>
+                <div class="thankyou-note"><i class="fas fa-smile"></i> Your feedback helps us improve!</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container"><p>© 2026 T-Handlers Logistics. All rights reserved.</p></div>
+    </footer>
+
+    <script>
+        let rating = 0;
+        document.querySelectorAll('.rating-stars i').forEach((star, i) => {
+            star.onclick = () => {
+                rating = i + 1;
+                document.querySelectorAll('.rating-stars i').forEach((s, idx) => {
+                    s.className = idx < rating ? 'fas fa-star' : 'far fa-star';
+                    s.style.color = idx < rating ? '#8B4513' : '#ccc';
+                });
+                document.getElementById('ratingFeedback').innerHTML = 'You rated: ' + rating + ' star' + (rating > 1 ? 's' : '');
+            };
+        });
+
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if(!this.fullName.value || !this.email.value || !document.querySelector('input[name="vehicle"]:checked') || !rating || !this.feedback.value || !document.querySelector('input[name="recommend"]:checked')) {
+                alert('Please fill in all fields');
+                return;
+            }
+            this.style.display = 'none';
+            document.getElementById('feedbackSuccessMessage').classList.remove('hidden-message');
+            setTimeout(() => window.location.href = 'index.html', 3000);
+        });
+    </script>
+
+</body>
+</html>
